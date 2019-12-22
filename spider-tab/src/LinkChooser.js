@@ -1,9 +1,10 @@
 import React from 'react';
 import { Form, Input, Icon, Button } from  'antd';
 
-let id = 0;
-
 class LinkChooser extends React.Component {
+  componentDidMount() {
+  }
+
   remove = k => {
     const { form } = this.props;
     // can use data-binding to get
@@ -21,14 +22,17 @@ class LinkChooser extends React.Component {
 
   add = () => {
     const { form } = this.props;
+    console.log(JSON.stringify(this.props));
     // can use data-binding to get
     const keys = form.getFieldValue('keys');
-    const nextKeys = keys.concat(id++);
+    const nextKeys = keys.concat(keys.length);
     // can use data-binding to set
     // important! notify form to detect changes
+    console.log(JSON.stringify(nextKeys));
     form.setFieldsValue({
       keys: nextKeys,
     });
+  
   };
 
   handleSubmit = e => {
