@@ -38,6 +38,8 @@ class LinkChooser extends React.Component {
         const { keys, names } = values;
         console.log('Received values of form: ', values);
         console.log('Merged values:', keys.map(key => names[key]));
+
+        window.localStorage.setItem('spider-web-list', JSON.stringify(values.names));
       }
     });
   };
