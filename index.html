@@ -4,9 +4,41 @@
   <script src="script.js"></script>
 </head>
 
-<body>
-  <h3> Hello there </h3>
+<body style="margin:0">
+  <div id="container">
+    <div class="red"></div>
+    <div class="yellow"></div>
+    <div class="blue"></div>
+  </div>
+
 </body>
 
+<style>
+  #container {
+    display: flex;
+    flex-direction: row;
+    background-color: whitesmoke;
+    height: 100%;
+    width: 100%;
+  }
+
+  .red {
+    background-color: red;
+    flex-grow: 1;
+    height: 100%;
+  }
+
+  .blue {
+    background-color: blue;
+    flex-grow: 1;
+    height: 100%;
+  }
+
+  .yellow {
+    background-color: yellow;
+    flex-grow: 1;
+    height: 100%;
+  }
+</style>
 
 </html>
