@@ -1,14 +1,23 @@
 <html>
 
 <head>
+  <script src="jquery.js"></script>
+  <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
   <script src="script.js"></script>
 </head>
 
 <body style="margin:0">
+  <div id="search">
+    Google search:
+    <input>bla</input>
+  </div>
   <div id="container">
-    <div class="red"></div>
-    <div class="yellow"></div>
-    <div class="blue"></div>
+    <div class="red">
+      <iframe src="https://youtube.com?spider_tab_iframe" style="height: 100%; width: 100%"> </iframe>
+    </div>
+    <div class="yellow">
+      <iframe src="https://www.producthunt.com?spider_tab_ifram" style="height: 100%; width: 100%;"> </iframe>
+    </div>
   </div>
 
 </body>

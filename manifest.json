@@ -10,5 +10,13 @@
     "default_icon": "favicon.png",
     "default_popup": "spider-tab/build/index.html",
     "default_title": "ChromiePop"
-  }
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "*://*/*spider_tab_iframe"
+  ]
 }
