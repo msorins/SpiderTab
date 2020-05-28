@@ -1,19 +1,21 @@
 var websites = JSON.parse(window.localStorage.getItem('spider-web-list'));
-if(websites == null || websites.length == 0) {
-  websites = ['https://www.google.ro/', 'https://mirceasorin.ro/'];
+if (websites == null || websites.length == 0) {
+  websites = ['https://youtube.com?spider_tab_iframe', 'https://www.producthunt.com?spider_tab_iframe'];
 }
 
-// console.log("websites list is " + websites)
-// $( document ).ready(function() {
-//   console.log( "ready!" );
+console.log("websites list is " + websites)
+$(document).ready(function () {
+  // Populate the websites
+  let i = 0;
+  for (let website of websites) {
+    $("#iframesContainer").append(`<div class="iframeSite">
+      <iframe src="${website}?spider_tab_iframe" style="height: 100%; width: 100%"> </iframe>
+    </div>`);
+    i += 1
+  }
+});
 
-//   let i = 0;
-//   let classes = ['red', 'blue', 'yellow']
-//   for(let website of websites) {
-//     console.log("adding: ", classes[i])
-//     $( "#container" ).append( `<div class="${classes[i]}"></div>`);
-//     i += 1
-//   }
-// });
+
+
 
 // window.location.href = chosenWebsite;

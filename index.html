@@ -2,51 +2,98 @@
 
 <head>
   <script src="jquery.js"></script>
-  <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
   <script src="script.js"></script>
+  <title>SpiderTab</title>
 </head>
 
 <body style="margin:0">
-  <div id="search">
-    Google search:
-    <input>bla</input>
-  </div>
   <div id="container">
-    <div class="red">
-      <iframe src="https://youtube.com?spider_tab_iframe" style="height: 100%; width: 100%"> </iframe>
+    <div id="pattern" class="pattern containerItem">
+      <form action="https://google.com/search" method="get" class="f">
+        <label class="is-vishidden">Google Search</label>
+        <input name="q" type="search" placeholder="Google Search" />
+        <input type="submit" class="btn search-submit" value="Go">
+      </form>
     </div>
-    <div class="yellow">
-      <iframe src="https://www.producthunt.com?spider_tab_ifram" style="height: 100%; width: 100%;"> </iframe>
+    <div id="iframesContainer" class="containerItem">
+      <!-- All the iframes will be populated here -->
     </div>
   </div>
-
 </body>
 
 <style>
   #container {
     display: flex;
-    flex-direction: row;
-    background-color: whitesmoke;
+    flex-direction: column;
+    margin: 0;
     height: 100%;
     width: 100%;
   }
+  
+  .containerItem {
+    flex-grow: 1;
+  }
 
-  .red {
-    background-color: red;
+  #iframesContainer {
+    display: flex;
+    flex-direction: row;
+    background-color: whitesmoke;
+    height: 100%;
+    margin: 10px;
+  }
+
+  .iframeSite {
+    background-color: white;
     flex-grow: 1;
     height: 100%;
   }
 
-  .blue {
-    background-color: blue;
-    flex-grow: 1;
-    height: 100%;
+  .is-vishidden {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
   }
 
-  .yellow {
-    background-color: yellow;
-    flex-grow: 1;
-    height: 100%;
+  .pattern {
+    padding: 1em;
+    line-height: 1;
+  }
+
+  .f {
+    position: relative;
+  }
+
+  input {
+    display: block;
+    border: 1px solid #000;
+  }
+
+  iframe {
+    display: block;
+    border: 1px solid #000;
+  }
+
+  input[type=search] {
+    width: 100%;
+    padding: 1em;
+    padding-right: 7em;
+    position: relative;
+    top: 0;
+  }
+
+  input[type=submit] {
+    position: absolute;
+    right: 0.75em;
+    top: 0.5em;
+    bottom: 0.5em;
+    z-index: 1;
+    width: 6em;
+    padding: 0;
+    cursor: pointer;
   }
 </style>
 
