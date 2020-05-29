@@ -54,30 +54,11 @@ class LinkChooser extends React.Component {
 
   render() {
     const { getFieldDecorator, getFieldValue } = this.props.form;
-    const formItemLayout = {
-      labelCol: {
-        xs: {},
-        sm: {},
-      },
-      wrapperCol: {
-        xs: {},
-        sm: {},
-      },
-    };
-    const formItemLayoutWithOutLabel = {
-      wrapperCol: {
-        xs: {},
-        sm: {},
-      },
-    };
+
     getFieldDecorator('keys', { initialValue: [] });
     const keys = getFieldValue('keys');
     const formItems = keys.map((k, index) => (
       <Form.Item
-        style={{ margin: 5 }}
-        {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-        required={false}
-        key={k}
       >
         {getFieldDecorator(`names[${k}]`, {
           validateTrigger: ['onChange', 'onBlur'],
@@ -88,7 +69,7 @@ class LinkChooser extends React.Component {
               message: "Enter the link you want to be opened",
             },
           ],
-        })(<Input placeholder="url" style={{ width: '92%', marginLeft: '2%' }} />)}
+        })(<Input placeholder="url" style={{ width: '92%', marginLeft: '2%', height: '20' }} />)}
         {keys.length > 1 ? (
           <Icon
             className="dynamic-delete-button"
@@ -99,10 +80,12 @@ class LinkChooser extends React.Component {
         ) : null}
       </Form.Item>
     ));
+
     return (
-      <Form style={{height: 400}} onSubmit={this.handleSubmit} onChange={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit} onChange={this.handleSubmit}>
+        <div style={{height: 7}}></div>
         {formItems}
-        <Form.Item {...formItemLayoutWithOutLabel}>
+        <Form.Item>
           <Button type="dashed" onClick={this.add} style={{ width: '94%', marginLeft: '2%' }}>
             <Icon type="plus" /> Add field
           </Button>
