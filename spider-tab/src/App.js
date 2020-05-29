@@ -9,25 +9,29 @@ const LinkChooserHorizontalForm = Form.create({
   name: 'horizontal_login', mapPropsToFields(props) {
     var websites = JSON.parse(window.localStorage.getItem('spider-web-list'));
 
+    var keysList = [];
+    var namesDict = {};
+
     if (websites != null) {
-      var keysList = [];
-      var namesDict = {};
       for (var i = 0; i < websites.length; i += 1) {
         keysList.push(i);
         namesDict[`names[${i}]`] = Form.createFormField({
           value: websites[i]
         });
       }
-
-      return {
-        keys: Form.createFormField({
-          value: keysList
-        }),
-        ...namesDict
-      };
+    } else {
+      keysList.push(0);
+      namesDict['names[0]'] = Form.createFormField({
+        value: 'https://producthunt.com'
+      });
     }
 
-    return {};
+    return {
+      keys: Form.createFormField({
+        value: keysList
+      }),
+      ...namesDict
+    };
   }
 })(LinkChooser);
 

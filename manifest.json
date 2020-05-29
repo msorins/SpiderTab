@@ -1,15 +1,15 @@
 {
   "name": "SpiderTab",
   "version": "1.0",
-  "description": "Get something from every new tab opened :)",
+  "description": "Get something from every new tab opened",
   "manifest_version": 2,
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
   "browser_action": {
-    "default_icon": "favicon.png",
+    "default_icon": "spider-512.png",
     "default_popup": "spider-tab/build/index.html",
-    "default_title": "ChromiePop"
+    "default_title": "SpiderTab Manager"
   },
   "background": {
     "scripts": ["background.js"]

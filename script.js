@@ -1,6 +1,6 @@
 var websites = JSON.parse(window.localStorage.getItem('spider-web-list'));
 if (websites == null || websites.length == 0) {
-  websites = ['https://youtube.com?spider_tab_iframe', 'https://www.producthunt.com?spider_tab_iframe'];
+  websites = ['https://producthunt.com?spider_tab_iframe'];
 }
 
 console.log("websites list is " + websites)
