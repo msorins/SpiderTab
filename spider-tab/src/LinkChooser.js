@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Icon, Button } from  'antd';
+import { Form, Input, Icon, Button } from 'antd';
 
 class LinkChooser extends React.Component {
   componentDidMount() {
@@ -18,6 +18,8 @@ class LinkChooser extends React.Component {
     form.setFieldsValue({
       keys: keys.filter(key => key !== k),
     });
+
+    this.persistToLocalStorage()
   };
 
   add = () => {
@@ -28,50 +30,52 @@ class LinkChooser extends React.Component {
     const nextKeys = keys.concat(keys.length);
     // can use data-binding to set
     // important! notify form to detect changes
-    console.log(JSON.stringify(nextKeys));
     form.setFieldsValue({
       keys: nextKeys,
     });
-  
+
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
+  persistToLocalStorage = () => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         const { keys, names } = values;
-        console.log('Received values of form: ', values);
-        console.log('Merged values:', keys.map(key => names[key]));
+        console.log('Saving to local storage:', keys.map(key => names[key]));
 
-        window.localStorage.setItem('spider-web-list', JSON.stringify(values.names));
+        window.localStorage.setItem('spider-web-list', JSON.stringify(keys.map(key => names[key])));
       }
     });
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.persistToLocalStorage()
   };
 
   render() {
     const { getFieldDecorator, getFieldValue } = this.props.form;
     const formItemLayout = {
       labelCol: {
-        xs: {  },
-        sm: {  },
+        xs: {},
+        sm: {},
       },
       wrapperCol: {
-        xs: {  },
-        sm: { },
+        xs: {},
+        sm: {},
       },
     };
     const formItemLayoutWithOutLabel = {
       wrapperCol: {
-        xs: {  },
-        sm: {  },
+        xs: {},
+        sm: {},
       },
     };
     getFieldDecorator('keys', { initialValue: [] });
     const keys = getFieldValue('keys');
     const formItems = keys.map((k, index) => (
       <Form.Item
+        style={{ margin: 5 }}
         {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-        label={index === 0 ? 'Links' : ''}
         required={false}
         key={k}
       >
@@ -84,27 +88,23 @@ class LinkChooser extends React.Component {
               message: "Enter the link you want to be opened",
             },
           ],
-        })(<Input placeholder="url" style={{ width: '94%', marginLeft: '2%' }} />)}
+        })(<Input placeholder="url" style={{ width: '92%', marginLeft: '2%' }} />)}
         {keys.length > 1 ? (
           <Icon
             className="dynamic-delete-button"
             type="minus-circle-o"
             onClick={() => this.remove(k)}
+            style={{ marginLeft: 7 }}
           />
         ) : null}
       </Form.Item>
     ));
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form style={{height: 400}} onSubmit={this.handleSubmit} onChange={this.handleSubmit}>
         {formItems}
         <Form.Item {...formItemLayoutWithOutLabel}>
           <Button type="dashed" onClick={this.add} style={{ width: '94%', marginLeft: '2%' }}>
             <Icon type="plus" /> Add field
-          </Button>
-        </Form.Item>
-        <Form.Item {...formItemLayoutWithOutLabel}>
-          <Button type="primary" htmlType="submit" style={{ width: '100%'}}>
-            Submit
           </Button>
         </Form.Item>
       </Form>
