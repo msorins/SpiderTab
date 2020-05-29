@@ -8,6 +8,10 @@ $(document).ready(function () {
   // Populate the websites
   let i = 0;
   for (let website of websites) {
+    if(!website.startsWith('http://') && !website.startsWith('https://')) {
+      website = 'http://' + website;
+    }
+    
     $("#iframesContainer").append(`<div class="iframeSite">
       <iframe src="${website}?spider_tab_iframe" style="height: 100%; width: 100%"> </iframe>
     </div>`);
