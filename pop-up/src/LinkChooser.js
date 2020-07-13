@@ -69,14 +69,29 @@ class LinkChooser extends React.Component {
               message: "Enter the link you want to be opened",
             },
           ],
-        })(<Input placeholder="url" style={{ width: '92%', marginLeft: '2%', height: '20' }} />)}
-        {keys.length > 1 ? (
-          <Icon
-            className="dynamic-delete-button"
-            type="minus-circle-o"
+        })(<Input placeholder="url" style={{ width: '85%', marginLeft: '4%', height: '20' }} />)}
+        {/* <FastForwardFilled /> */}
+        <Icon
+            type="zoom-in"
             onClick={() => this.remove(k)}
-            style={{ marginLeft: 7 }}
+            style={{ marginLeft: 7, 'fontSize': 18 }}
           />
+         <Icon
+            className="dynamic-delete-button"
+            type="zoom-out"
+            onClick={() => this.remove(k)}
+            style={{ marginLeft: 7, marginRight: 6, 'fontSize': 18 }}
+          /> 
+        {keys.length > 1 ? (
+          <span>
+            <span style={{'width': '10px', 'fontSize': 25}}>|</span>
+            <Icon
+            className="dynamic-delete-button"
+            type="delete"
+            onClick={() => this.remove(k)}
+            style={{ marginLeft: 7, 'fontSize': 18}}
+          />
+          </span>
         ) : null}
       </Form.Item>
     ));
