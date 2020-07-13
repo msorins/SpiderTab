@@ -70,14 +70,14 @@ class LinkChooser extends React.Component {
     getFieldDecorator("keys", { initialValue: [] });
     const keys = getFieldValue("keys");
     const formItems = keys.map((k, index) => (
-      <Form.Item>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <Form.Item style={{width: "75%", marginLeft: "2%", height: "20" }}>
           {getFieldDecorator(`names[${k}]`, {
             validateTrigger: ["onChange", "onBlur"],
             rules: [
@@ -90,34 +90,33 @@ class LinkChooser extends React.Component {
           })(
             <Input
               placeholder="url"
-              style={{ width: "75%", marginLeft: "2%", height: "20" }}
             />
           )}
-          <div>
-            <Icon
-              type="zoom-in"
-              onClick={() => this.decreaseWidth(k)}
-              style={{ marginLeft: 7, fontSize: 18 }}
-            />
-            <Icon
-              className="dynamic-delete-button"
-              type="zoom-out"
-              onClick={() => this.increaseWidth(k)}
-              style={{ marginLeft: 7, fontSize: 18 }}
-            />
-            {keys.length > 1 ? (
-              <span>
-                <Icon
-                  className="dynamic-delete-button"
-                  type="delete"
-                  onClick={() => this.remove(k)}
-                  style={{ marginLeft: 7, fontSize: 18, color: 'black' }}
-                />
-              </span>
-            ) : null}
-          </div>
+        </Form.Item>
+        <div style={{marginTop: 10}}>
+          <Icon
+            type="zoom-in"
+            onClick={() => this.decreaseWidth(k)}
+            style={{ marginLeft: 7, fontSize: 18 }}
+          />
+          <Icon
+            className="dynamic-delete-button"
+            type="zoom-out"
+            onClick={() => this.increaseWidth(k)}
+            style={{ marginLeft: 7, fontSize: 18 }}
+          />
+          {keys.length > 1 ? (
+            <span>
+              <Icon
+                className="dynamic-delete-button"
+                type="delete"
+                onClick={() => this.remove(k)}
+                style={{ marginLeft: 7, fontSize: 18, color: "black" }}
+              />
+            </span>
+          ) : null}
         </div>
-      </Form.Item>
+      </div>
     ));
 
     return (
