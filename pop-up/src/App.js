@@ -8,12 +8,17 @@ import LinkChooser from './LinkChooser';
 const LinkChooserHorizontalForm = Form.create({
   name: 'horizontal_login', mapPropsToFields(props) {
     var websites = JSON.parse(window.localStorage.getItem('spider-web-list'));
+    var widthList = JSON.parse(window.localStorage.getItem('spider-web-list-width')) || [];
 
     var keysList = [];
     var namesDict = {};
 
     if (websites != null) {
       for (var i = 0; i < websites.length; i += 1) {
+        if(widthList.length < websites.length) {
+          widthList.push(1)
+        }
+
         keysList.push(i);
         namesDict[`names[${i}]`] = Form.createFormField({
           value: websites[i]
@@ -26,11 +31,17 @@ const LinkChooserHorizontalForm = Form.create({
       });
     }
 
+    // Add the widthList to form data
+    namesDict['widthList'] = Form.createFormField({
+      value: widthList
+    })
+
+    console.log("--> namesDict: ", namesDict)
     return {
       keys: Form.createFormField({
         value: keysList
       }),
-      ...namesDict
+      ...namesDict,
     };
   }
 })(LinkChooser);

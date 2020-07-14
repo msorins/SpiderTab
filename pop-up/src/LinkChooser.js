@@ -2,14 +2,21 @@ import React from "react";
 import { Form, Input, Icon, Button } from "antd";
 
 class LinkChooser extends React.Component {
-  componentDidMount() {}
+  componentDidMount() {
+    const { form } = this.props;
+    this.widthList = form.getFieldValue("widthList");
+  }
 
   increaseWidth = (k) => {
-    console.log("--> increase: ", k);
+    this.widthList[k] += 1;
+    console.log("--> new: ", this.widthList)
+    this.persistToLocalStorage();
   };
 
   decreaseWidth = (k) => {
-    console.log("--> decrease: ", k);
+    this.widthList[k] -= 1;
+    this.widthList[k] = Math.max(this.widthList[k], 1);
+    this.persistToLocalStorage();
   };
 
   remove = (k) => {
@@ -20,6 +27,9 @@ class LinkChooser extends React.Component {
     if (keys.length === 1) {
       return;
     }
+
+    // delete from width list
+    this.widthList.splice(k);
 
     // can use data-binding to set
     form.setFieldsValue({
@@ -35,6 +45,10 @@ class LinkChooser extends React.Component {
     // can use data-binding to get
     const keys = form.getFieldValue("keys");
     const nextKeys = keys.concat(keys.length);
+
+    // append width list
+    this.widthList.push(1);
+
     // can use data-binding to set
     // important! notify form to detect changes
     form.setFieldsValue({
@@ -54,6 +68,12 @@ class LinkChooser extends React.Component {
         window.localStorage.setItem(
           "spider-web-list",
           JSON.stringify(keys.map((key) => names[key]))
+        );
+
+        console.log("saving: ", this.widthList);
+        window.localStorage.setItem(
+          "spider-web-list-width",
+          JSON.stringify(this.widthList)
         );
       }
     });
@@ -77,7 +97,7 @@ class LinkChooser extends React.Component {
           justifyContent: "center",
         }}
       >
-        <Form.Item style={{width: "75%", marginLeft: "2%", height: "20" }}>
+        <Form.Item style={{ width: "75%", marginLeft: "2%", height: "20" }}>
           {getFieldDecorator(`names[${k}]`, {
             validateTrigger: ["onChange", "onBlur"],
             rules: [
@@ -87,22 +107,18 @@ class LinkChooser extends React.Component {
                 message: "Enter the link you want to be opened",
               },
             ],
-          })(
-            <Input
-              placeholder="url"
-            />
-          )}
+          })(<Input placeholder="url" />)}
         </Form.Item>
-        <div style={{marginTop: 10}}>
+        <div style={{ marginTop: 10 }}>
           <Icon
             type="zoom-in"
-            onClick={() => this.decreaseWidth(k)}
+            onClick={() => this.increaseWidth(k)}
             style={{ marginLeft: 7, fontSize: 18 }}
           />
           <Icon
             className="dynamic-delete-button"
             type="zoom-out"
-            onClick={() => this.increaseWidth(k)}
+            onClick={() => this.decreaseWidth(k)}
             style={{ marginLeft: 7, fontSize: 18 }}
           />
           {keys.length > 1 ? (
@@ -127,7 +143,7 @@ class LinkChooser extends React.Component {
           <Button
             type="dashed"
             onClick={this.add}
-            style={{ width: "94%", marginLeft: "2%" }}
+            style={{ width: "94%", marginLeft: "3%" }}
           >
             <Icon type="plus" /> Add Website
           </Button>
