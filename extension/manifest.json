@@ -17,6 +17,6 @@
   "permissions": [
     "webRequest",
     "webRequestBlocking",
-    "*://*/*spider_tab_iframe"
+    "*://*/*"
   ]
 }
