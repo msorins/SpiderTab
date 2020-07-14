@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Icon, Button, notification } from "antd";
+import { Form, Input, Icon, Button, message} from "antd";
 
 class LinkChooser extends React.Component {
   componentDidMount() {
@@ -10,11 +10,15 @@ class LinkChooser extends React.Component {
   increaseWidth = (k) => {
     this.widthList[k] += 1;
   
-    notification.open({
-      message: 'New width is ' + this.widthList[k],
-      placement: 'bottomRight',
-      duration: 0.5,
+    message.success({
+      content: 'New width is ' + this.widthList[k],
+      className: 'custom-class',
+      style: {
+        marginTop: '15vh',
+      },
+      duration: 0.7,
     });
+
     this.persistToLocalStorage();
 
   };
@@ -23,11 +27,14 @@ class LinkChooser extends React.Component {
     this.widthList[k] -= 1;
     this.widthList[k] = Math.max(this.widthList[k], 1);
 
-    notification.open({
-      message: 'New width is ' + this.widthList[k],
-      placement: 'bottomRight',
-      duration: 0.5,
-    })
+    message.success({
+      content: 'New width is ' + this.widthList[k],
+      className: 'custom-class',
+      style: {
+        marginTop: '15vh',
+      },
+      duration: 0.7,
+    });
     this.persistToLocalStorage();
   };
 

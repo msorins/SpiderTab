@@ -25,6 +25,7 @@ const LinkChooserHorizontalForm = Form.create({
         });
       }
     } else {
+      widthList = [1]
       keysList.push(0);
       namesDict['names[0]'] = Form.createFormField({
         value: 'https://producthunt.com'
